@@ -1,0 +1,107 @@
+
+{% load static %}
+
+<head>
+    <title>SHADOK | Koszyk</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/cart_detail.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+{% include "nav_footer/navbar.html" %}
+<div class="cart-container">
+    <h1 class="cart-header">Koszyk</h1>
+    <table class="table table-responsive">
+        <tbody>
+
+        {% for item in cart %}
+            {% with product=item.product %}
+        <tr>
+            <td>
+                <a href="{{product.get_absolute_url}}">
+                    <img src="{% if product.image %}
+                    {{product.image.url}}
+                    {% else %}
+                    {% static 'images/no-image.jpg' %}
+                    {% endif %}">
+                </a>
+            </td>
+            <td>{{product.name}}</td>
+            <td class="num">{{item.price}}zł</td>
+            <td>
+                <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                    {{ item.update_quantity_form.quantity }}
+                    {{ item.update_quantity_form.update }}
+                    <input type="submit" value="Zmień">
+                    {% csrf_token %}
+                </form>
+            </td>
+            <td class="num">{{item.total_price}}zł</td>
+            <td>
+                <form action="{% url 'cart:cart_remove' product.id %}" method="post" class="delete-button">
+                <input type="submit" value="Usuń">
+                {% csrf_token %}
+                </form>
+            </td>
+
+
+        </tr>
+            {% endwith %}
+        {% endfor %}
+
+
+        {% if discount.coupon %}
+            <tr class="subtotal">
+                <td>Wartość całkowita produktów</td>
+                <td colspan="4"></td>
+                <td class="num">{{ total_price.get_total_price }} zł</td>
+            </tr>
+            <tr>
+                <td>
+                    Wartość kuponu "{{ discount.coupon.code }}"
+                    ({{ discount.coupon.discount }}% rabatu)
+                </td>
+                <td colspan="4"></td>
+                <td class="num neg">
+                    - {{ coupon_discount|floatformat:2 }} zł
+                </td>
+            </tr>
+        {% endif %}
+        <tr class="shipping_value">
+            <td>Dostawa InPost na podany adres</td>
+            <td colspan="4"></td>
+            <td>+ {{shipping.shipping_value}}</td>
+        </tr>
+        <tr class="total">
+            <td>Kwota do zapłaty</td>
+            <td colspan="4"></td>
+            <td class="num">
+                {{ total_price.get_total_price_after_discount_and_shipping|floatformat:"2"}} zł
+            </td>
+        </tr>
+
+        </tbody>
+
+    </table>
+</div>
+
+<div class="coupon-form">
+    <h2>Kupon rabatowy:</h2>
+    <form action="{% url 'coupons:apply' %}" method="post">
+        {{ coupon_apply_form }}
+        <input type="submit" value="Dodaj">
+        {% csrf_token %}
+    </form>
+</div>
+
+<div class="buttons">
+    <a href="{% url 'order:order_create' %}" class="button-1">Przejdź do płatności</a>
+</div>
+
+
+{% include "nav_footer/footer.html" %}

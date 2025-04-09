@@ -1,0 +1,58 @@
+{% load static %}
+
+<head>
+    <title>SHADOK | Utwórz konto</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/register.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+<!-- Navigation Bar -->
+{% include "nav_footer/navbar.html" %}
+<!-- Navigation Bar -->
+
+
+<!-- REGISTER FORM -->
+
+<h1>Utwór konto</h1>
+
+<form method="POST" action="" class="responsive-form">
+    {% csrf_token %}
+    <div class="form-row">
+    <label for="username">Nazwa użytkownika</label>
+    {{form.username}}
+    <label for="email">Adres Email</label>
+    {{form.email}}
+    <label for="password1">Hasło</label>
+    {{form.password1}}
+    <label for="password2">Powtórz hasło</label>
+    {{form.password2}}
+
+    {% for message in messages %}
+    <div class="messages">
+        <p>{{message}}</p>
+    </div>
+    {% endfor %}
+
+        <div class="register-button">
+            <input type="submit" value="Zarejestruj się">
+
+        </div>
+
+    <p class="info-block">Jeśli masz już konto
+        <a href="{% url 'accounts:login' %}"> Zaloguj się</a>
+    </p>
+
+    </div>
+
+</form>
+
+</div>
+<!-- Footer -->
+{% include "nav_footer/footer.html" %}
+<!-- Footer -->

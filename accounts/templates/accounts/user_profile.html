@@ -1,0 +1,82 @@
+{% load static %}
+
+<head>
+    <title>SHADOK | Twój profil</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/profile.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+<!-- Navigation Bar -->
+{% include "nav_footer/navbar.html" %}
+<!-- Navigation Bar -->
+
+
+<!-- LOGIN FORM -->
+<div class="header">
+    <h1 class="header-title">Twój profil</h1>
+    <div class="buttons">
+        <a class="button-left" href="{% url 'accounts:reset' %}">Zmień hasło</a>
+        <a class="button-right" href="{% url 'accounts:delete' %}">Usuń konto</a>
+    </div>
+</div>
+
+<div class="main-container">
+    <h1 class="container-header">Twoje zamówienia</h1>
+    {% for order in orders %}
+        <div class="order-container">
+            <h2>Zamówienie numer: {{ order.id }}</h2> <h2>Status zamówienia: {{ order.get_order_status_display }}</h2>
+            <h3>Dane kontaktowe do zamówienia</h3>
+
+            <p>Imię: {{ order.first_name }}</p>
+            <p>Nazwisko: {{ order.last_name }}</p>
+            <p>Numer telefonu: {{ order.phone_number }}</p>
+            <p>Adres e-mail: {{ order.email }}</p>
+            <p>Adres: {{ order.address }}</p>
+            <p>Miasto: {{ order.city }}</p>
+            <p>Kod pocztowy: {{ order.postal_code }}</p>
+            <p>Data utworzenia: {{ order.created }}</p>
+
+
+
+            <h3>Szczegóły zamówienia:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nazwa produktu</th>
+                        <th>Cena</th>
+                        <th>Ilość</th>
+                        <th>Suma</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.price }} zł</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.get_cost }} zł</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td>Dostawa InPost</td>
+                        <td>8.99 zł</td>
+                        <td>1</td>
+                        <td>8.99 zł</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p> Suma zamówienia {{ order.total_cost|floatformat:"2"}}</p>
+        </div>
+    {% endfor %}
+</div>
+<!-- Footer -->
+{% include "nav_footer/footer.html" %}
+<!-- Footer -->

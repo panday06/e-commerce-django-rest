@@ -1,0 +1,58 @@
+{% load static %}
+
+<head>
+    <title>SHADOK | Zaloguj się</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/login.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+<!-- Navigation Bar -->
+{% include "nav_footer/navbar.html" %}
+<!-- Navigation Bar -->
+
+
+<!-- LOGIN FORM -->
+
+<h1>Zaloguj się</h1>
+
+
+<form method="POST" action="">
+	{% csrf_token %}
+    <div class="form-row">
+    <label for="username">Nazwa użytkownika</label>
+	<input type="text" name="username">
+    <label for="password">Hasło</label>
+	<input type="password" name="password">
+
+    {% for message in messages %}
+    <div class="messages">
+        <p>{{message}}</p>
+    </div>
+    {% endfor %}
+
+	<div class="login-button">
+	    <input type="submit" value="Login">
+    </div>
+
+    <p class="info-block">Jeśli nie masz konta
+        <a href="{% url 'accounts:register' %}"> Zarejestruj się</a>
+    </p>
+    <p class="info-block">Jeśli nie pamiętasz hasła
+        <a href="{% url 'accounts:reset' %}"> Zmień hasło</a>
+    </p>
+
+    </div>
+</form>
+
+
+
+
+<!-- Footer -->
+{% include "nav_footer/footer.html" %}
+<!-- Footer -->

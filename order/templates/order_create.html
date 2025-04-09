@@ -1,0 +1,39 @@
+{% load static %}
+
+<head>
+    <title>SHADOK | Złóż zamówienie</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/order_detail.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+{% include "nav_footer/navbar.html" %}
+
+<div class="header">
+  <h1>Podsumowanie zamówienia</h1>
+</div>
+<div class="order-info">
+  <ul>
+    {% for item in cart %}
+    <li>
+      {{item.quantity }} x {{item.product.name}}
+      <span>{{item.total_price}} zł</span>
+    </li>
+    {% endfor %}
+      <p>1 x Dostawa InPost 8.99</p>
+  </ul>
+  <p>Wartość całkowita: {{total_price.get_total_price_after_discount_and_shipping|floatformat:"2"}} zł</p>
+</div>
+
+<form action="." method="post" class="order-form">
+  {{form.as_p}}
+    <button type="submit" class="button1">Zamów</button>
+  {% csrf_token %}
+</form>
+
+
+{% include "nav_footer/footer.html" %}

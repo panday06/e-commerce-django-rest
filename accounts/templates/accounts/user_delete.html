@@ -1,0 +1,48 @@
+{% load static %}
+
+<head>
+    <title>SHADOK | Usuń konto</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/delete_user.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+<!-- Navigation Bar -->
+{% include "nav_footer/navbar.html" %}
+<!-- Navigation Bar -->
+
+
+<!-- LOGIN FORM -->
+
+<h1>Usuń konto</h1>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="form-row">
+        <label for="id_email">Adres email</label>
+        <input id="id_email" type="email" name="email">
+
+        <label for="id_password">Hasło</label>
+        <input id="id_password" type="password" name="password">
+
+        {% for message in messages %}
+        <div class="messages">
+            <p>{{message}}</p>
+        </div>
+        {% endfor %}
+
+        <div class="delete-button">
+            <input type="submit" value="Usuń konto">
+        </div>
+    </div>
+</form>
+
+
+<!-- Footer -->
+{% include "nav_footer/footer.html" %}
+<!-- Footer -->
