@@ -1,0 +1,31 @@
+
+{% load static %}
+
+<head>
+    <title>SHADOK | Kontakt</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/contact.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+
+
+{% include "nav_footer/navbar.html" %}
+
+<h1>Napisz do nas</h1>
+
+<div class="contact-form">
+    <form method="post" action="{% url 'contact' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label>Adres e-mail</label>
+        {{ form.email }}
+      <label>Temat wiadomości</label>
+        {{ form.subject }}
+      <label>Twoja wiadomość</label>
+        {{ form.text }}
+      <label>Dodaj zdjęcie</label>
+        {{ form.file }}
+        <button type="submit" value="Submit">Wyślij wiadomość</button>
+    </form>
+</div>
+{% include "nav_footer/footer.html" %}

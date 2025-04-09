@@ -1,0 +1,71 @@
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/navbar.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="{% static '/script/navigation_bar.js' %}" defer></script>
+</head>
+<body>
+
+    <div class="banner">
+    <div class="banner__content">
+        <div class="banner__text">
+            {% if banner_text %}
+            <Strong>{{banner_text}}</Strong>
+            {% else %}
+            <Strong>Witaj na naszej stronie!</Strong>
+            {% endif %}
+
+        </div>
+        <button class="banner__close" type="button">
+            <span class="material-icons">
+                <i class="fa fa-close"></i>
+            </span>
+        </button>
+    </div>
+    </div>
+
+<nav class="nav">
+      <i class="uil uil-bars navOpenBtn"></i>
+      <a href="{% url 'shop:product_list' %}" class="logo">
+          {% if navbar_log %}
+          {{navbar_log}}
+          {% else %}
+          Logo
+          {% endif %}</a>
+
+      <ul class="nav-links">
+        <i class="uil uil-times navCloseBtn"></i>
+        <li><a href="{% url 'shop:product_list' %}">Produkty</a></li>
+        <li><a href="{% url 'shop_info:about_us' %}">O sklepie</a></li>
+        <li><a href="{% url 'contact' %}">Kontakt</a></li>
+        {% with total_items=cart|length %}
+          {% if cart|length > 0 %}
+          <li><a href="{% url 'cart:cart_detail' %}">Koszyk <sup>{{ total_items }}</sup></a></li>
+          {% else %}
+          <li><a href="{% url 'cart:cart_detail' %}">Koszyk</a></li>
+          {% endif %}
+        {% endwith %}
+          <li class="user-dropdown">
+              <a href="{% url 'accounts:profile' %}">Twój profil</a>
+              <div class="user-dropdown-content">
+                  <a class="dropdown-links" href="{% url 'accounts:logout' %}">Wyloguj się</a>
+                  <a class="dropdown-links" href="{% url 'accounts:login' %}">Zaloguj się</a>
+              </div>
+          </li>
+      </ul>
+      <i class="uil uil-search search-icon" id="searchIcon"></i>
+      <div class="search-box">
+        <form method="get" action="{% url 'shop:search' %}">
+        <i class="uil uil-search search-icon"></i>
+        <input name="q" type="text" placeholder="Wyszukaj produkt..." />
+        </form>
+      </div>
+</nav>
+
+</body>
+</html>

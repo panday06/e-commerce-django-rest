@@ -1,0 +1,36 @@
+
+{% load static %}
+
+<head>
+    <title>SHADOK | Oceń {{product.name}}</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/product_rate.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+
+{% include "nav_footer/navbar.html" %}
+
+
+
+<h1>Napisz opinię o produkcie <span>{{product.name}}</span></h1>
+
+<div class="product-rate-form">
+  <form method="post" action="" role="form" class="col s12">
+      {% csrf_token %}
+          <label>Nazwa użytkownika</label>
+            {{ form.user_name }}
+          <label>Twoja opinia</label>
+            {{ form.text }}
+          <label>Ilość gwiazdek</label>
+              {{ form.rate }}
+
+          <button type="submit" name="action" >Dodaj opinię</button>
+  </form>
+</div>
+
+{% include "nav_footer/footer.html" %}

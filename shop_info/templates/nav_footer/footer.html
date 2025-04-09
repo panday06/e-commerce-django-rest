@@ -1,0 +1,89 @@
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/footer.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+<body>
+
+
+<footer>
+    <section class="container">
+        <div class="about">
+            <h3>O nas</h3>
+            {% if footer_descr %}
+            <p>{{footer_descr}}</p>
+            {% else %}
+            <p> Przykro nam, nic tutaj nie ma...</p>
+            {% endif %}
+            </div>
+        <div class="services">
+            <h3>Obsługa</h3>
+            <ul>
+                <li>
+                    <a href="{% url 'shop_info:about_us' %}">O nas</a>
+                </li>
+                <li>
+                    <a href="{% url 'contact' %}">Kontakt</a>
+                </li>
+                <li>
+                    <a href="{% url 'shop_info:all_documents' %}">Regulamin</a>
+                </li>
+                <li>
+                    <a href="{% url 'shop_info:all_documents' %}">Polityka prywatności</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="orders">
+            <h3>Obsługa</h3>
+            <ul>
+                <li>
+                    <a href="{% url 'shop_info:shipping' %}">Dostawa</a>
+                </li>
+                <li>
+                    <a href="{% url 'shop_info:all_documents' %}">Zwroty i reklamacje</a>
+                </li>
+                <li>
+                    <a href="{% url 'shop_info:faq' %}">FAQ</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="contact">
+            <h3>Kontakt</h3>
+            <ul>
+                <li>
+                    {% if footer_contact_info.address %}
+                    Adres: {{footer_contact_info.address}}
+                    {% else %}
+                    Adres: BRAK
+                    {% endif %}
+                </li>
+                <li>
+                    {% if footer_contact_info.phone_number %}
+                    Numer telefonu: {{footer_contact_info.phone_number}}
+                    {% else %}
+                    Adres: BRAK
+                    {% endif %}
+                </li>
+                <li>
+                    {% if footer_contact_info.phone_number %}
+                    Email: {{footer_contact_info.email}}
+                    {% else %}
+                    Email: BRAK
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="copyright">Copyright: Kacper Włodarczyk</section>
+</footer>
+
+
+
+</body>
+</html>

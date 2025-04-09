@@ -1,0 +1,56 @@
+{% load static %}
+<head>
+    <title>SHADOK | Szukaj produktu</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/product_search.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+
+<!-- Navigation Bar -->
+{% include "nav_footer/navbar.html" %}
+<!-- Navigation Bar -->
+
+
+<!-- PRODUCTS -->
+
+<div class="grid">
+  {% if products %}
+  {% for product in products %}
+  <article>
+      <a href="{{product.get_absolute_url}}">
+      <img src="{% if product.image %}
+                {{product.image.url}}
+                {% else %}
+                {% static 'images/no-image.jpg' %}
+                {% endif %}">
+      </a>
+    <div class="text">
+      <a href="{{product.get_absolute_url}}">
+        <h4 class="product-name">{{product.name|truncatechars:100}}</h4>
+      </a>
+        <p class="product-price"><strong>{{product.price}} zł</strong></p>
+
+        <form action="{% url 'cart:cart_add' product.id %}" method="post">
+            {{cart_product_form}}
+            {% csrf_token %}
+            <input type="submit" value="Dodaj do koszyka">
+        </form>
+    </div>
+  </article>
+   {% endfor %}
+{% else %}
+  <h1>Przykro nam nie ma takiego produktu</h1>
+{% endif %}
+</div>
+
+
+
+
+<!-- PRODUCTS -->
+
+
+
+<!-- Footer -->
+{% include "nav_footer/footer.html" %}
+<!-- Footer -->

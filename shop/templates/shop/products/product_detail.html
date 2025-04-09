@@ -1,0 +1,94 @@
+{% load static %}
+
+<head>
+    <title>SHADOK | {{product.name}}</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/product_detail.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+<!-- Navigation Bar -->
+{% include "nav_footer/navbar.html" %}
+<!-- Navigation Bar -->
+
+<br><br><br>
+
+<!-- Product details -->
+
+<section id="product" class="product container">
+    <div class="product-info">
+        <h1 class="product-info-heading">{{product.name}}</h1>
+        <h4 style="text-align:center">Średnia ocen: {{ average_rating.rate__avg|floatformat:2}}<i class="fa fa-star"></i></h4>
+
+    </div>
+
+    <div class="row">
+        <div class="left">
+            <img src="{% if product.image %}
+                {{product.image.url}}
+                {% else %}
+                {% static 'images/no-image.jpg' %}
+                {% endif %}">
+        </div>
+
+        <div class="right">
+            <div class="content">
+                <p class="price">{{product.price}} zł</p>
+                <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                    {% csrf_token %}
+                    {{cart_product_form}}
+
+                    <input type="submit" value="Dodaj do koszyka">
+                    <a class="button-add-rate" href="{% url 'shop:product_rate' product.id product.slug %}">Oceń produkt</a>
+
+                </form>
+                <p class="description">{{product.description}}</p>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Product details -->
+
+
+
+<!-- Product rates -->
+    <div class="product-rates">
+
+        <div class="rates-info">
+
+            <form method="GET" action="{% url 'shop:product_detail' product.id product.slug %}" class="filter-form">
+                {% csrf_token%}
+                {{rate_filter.form}}
+                <button type="submit" class="filter-button">Filtruj</button>
+            </form>
+        </div>
+
+        <div class="user-rates">
+            {% if rate_filter.qs.count %}
+                {% for rate in rate_filter.qs %}
+                <div class="single-rate">
+                    <h6>{{ rate.user_name }}
+                    {{ rate.rate }} <i class="fa fa-star"></i></h6>
+                    <p>{{ rate.text }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Ten produkt nie ma jeszcze żadnych opinii lub opinia którą wybrałeś nie istnieje.</p>
+            {% endif %}
+        </div>
+    </div>
+
+<!-- Product rates -->
+
+
+
+<!-- Footer -->
+{% include "nav_footer/footer.html" %}
+<!-- Footer -->

@@ -1,0 +1,22 @@
+{% load static %}
+
+<head>
+    <title>SHADOK | Dostawy</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/shipping.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+
+{% include "nav_footer/navbar.html" %}
+
+<div class="info">
+    <h1>Dostawy na naszej stronie</h1>
+    {% if shipping_text %}
+    <p>{{shipping_text}}</p>
+    {% else %}
+    <p>Brak...</p>
+    {% endif %}
+</div>
+
+{% include "nav_footer/footer.html" %}

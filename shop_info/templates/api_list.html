@@ -1,0 +1,29 @@
+
+{% load static %}
+<head>
+    <title>SHADOK | API</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+
+<!-- Navigation Bar -->
+{% include "nav_footer/navbar.html" %}
+<!-- Navigation Bar -->
+
+<br><br><br><br><br><br>
+<h1>Wszystkie dostępne api</h1>
+<a href="{% url 'api_data:data_product' %}">Product data</a>
+<a href="{% url 'api_data:add_product' %}">Add product</a>
+<a href="{% url 'api_data:data_category' %}">Category data</a>
+<a href="{% url 'api_data:add_category' %}">Add category</a>
+<a href="{% url 'api_data:data_coupon' %}">Coupon data</a>
+<a href="{% url 'api_data:add_coupon' %}">Add coupon</a>
+<a href="{% url 'api_data:data_order' %}">Order data</a>
+<a href="{% url 'api_data:data_order_item' %}">Order Item data</a>
+<a href="{% url 'api_data:data_delivery' %}">Delivery data</a>
+<a href="{% url 'api_data:add_delivery' %}">Add delivery</a>
+
+<!-- Footer -->
+{% include "nav_footer/footer.html" %}
+<!-- Footer -->
